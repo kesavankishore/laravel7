@@ -9,6 +9,7 @@ Route::resource('product', 'ProductController');
 Route::resource('category', 'CategoryController');
 
 Route::get('pdf', 'ProductController@pdf')->name('pdf');
+Route::get('mail', 'ProductController@email')->name('mail');
 
 Route::get('/cart-details', 'CartController@index')->name('cart.details');
 Route::get('/cart-add', 'CartController@cart_add')->name('cart.add');
