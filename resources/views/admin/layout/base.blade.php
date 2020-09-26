@@ -6,6 +6,12 @@
     <title>{{ config('app.name', 'Laravel Multi Auth Guard') }}</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{{asset('DataTables/css/dataTables.bootstrap4.min.css')}}">
+  <style>
+  #example_wrapper{
+    display:unset !important;
+  }
+  </style>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
@@ -50,6 +56,18 @@
         <li class="nav-item">
           <a class="nav-link" href="{{ url('/admin/category') }}">Category</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url('/admin/employee') }}">Employee</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url('/admin/top-five') }}">Employee Top 5 Salary</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url('/admin/document') }}">Document Upload</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url('/admin/email') }}">Send Email</a>
+        </li>
         @if (Auth::guest())
         <li class="nav-item">
           <a class="nav-link" href="{{ url('/admin/register') }}">Register</a>
@@ -70,10 +88,7 @@
         </li>
         @endif
       </ul>
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-      </form>
+      
     </div>
   </nav>
 <div class="container">
@@ -81,6 +96,8 @@
    @yield('content')
 
    </div>
- 
+   <script type="text/javascript" src="{{asset('DataTables/js/jquery.dataTables.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('DataTables/js/dataTables.bootstrap4.min.js')}}"></script>
+    
 </body>
 </html>

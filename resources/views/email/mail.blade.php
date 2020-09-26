@@ -1,3 +1,11 @@
-Hi <strong>{{ $data['title'] }}</strong>,
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Test Mail</title>
+</head>
+<body>
+    Hi <strong>{{ $title }}</strong>,
  
-<p>{{ $data['body'] }}</p>
+    <p>{{ $body }}</p>
+</body>
+</html>

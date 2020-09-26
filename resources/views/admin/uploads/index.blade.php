@@ -6,7 +6,7 @@
 
         <div class="row bg-title">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <h4 class="page-title">Products</h4><a href="{{ route('admin.product.create') }}" class="btn btn-success">Create product</a><br><br><br>
+                <h4 class="page-title">Employee Documents</h4><a href="{{ route('admin.document-upload') }}" class="btn btn-success">Upload Documents</a><br><br><br>
             </div>
             
         </div>
@@ -37,32 +37,30 @@
 @endif
 
         <div class="box box-block bg-white">
-            <table class="table table-striped table-bordered dataTable" id="example" style="display:revert !important;">
+            <table class="table table-striped table-bordered dataTable" id="example">
                 <thead>
                     <tr>
                         <th>id</th>
                         <th>Name</th>
-                        <th>Price</th>
-                        <th>Picture</th>
-                        <th>Date</th>
-                        <th>Action</th>
+                        <th>Original Name</th>
+                        <th>CreatedAt</th> 
+                        <th>Document</th>
+                        <th>Action</th>                       
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($products as $index => $product)
+                    @foreach($employeeDocuments as $index => $document)
                     <tr>
                         <td>{{ $index + 1 }}</td>
-                        <td>{{ $product->name }}</td>
-                        <td>${{ $product->price }}</td>
-                        <!-- <td><img src="http://localhost/laravel/storage/app/{{ $product->pic }}" width="70" ></td> -->
-                        <td> <img src="{{ url('storage/'.$product->pic)}}" width="70" ></td>
-                        <td>{{ $product->created_at }}</td>
+                        <td>{{ $document->employee_name }}</td>
+                        <td>{{ $document->originalName }}</td> 
+                        <td>{{ $document->created_at }}</td>
+                        <td><a target="_blank" href="{{ url('storage/'.$document->emp_doc)}}"><button class="btn btn-success">View Document</button></a></td>
                         <td>
-                            <form action="{{ route('admin.product.destroy', $product->id) }}" method="POST">
+                        <form action="{{ route('admin.document-delete', $document->id) }}" method="POST">
                                 {{ csrf_field() }}
                                 <input type="hidden" name="_method" value="DELETE">
-                                <a href="{{ route('admin.product.show', $product->id) }}" class="btn btn-success"> View</a>
-                                <a href="{{ route('admin.product.edit', $product->id) }}" class="btn btn-warning"> Edit</a>
+                                
                                 <button class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
                             </form>
                         </td>
@@ -73,10 +71,10 @@
                     <tr>
                         <th>id</th>
                         <th>Name</th>
-                        <th>Price</th>
-                        <th>Picture</th>
-                        <th>Date</th>
-                        <th>Action</th>
+                        <th>Original Name</th>
+                        <th>CreatedAt</th>
+                        <th>Document</th>
+                        <th>Action</th>  
                     </tr>
                 </tfoot>
             </table>

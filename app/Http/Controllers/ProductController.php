@@ -179,7 +179,8 @@ class ProductController extends Controller
 
     $products = Product::all();
     $pdf = PDF::loadView('admin.product.pdf', compact('products'));
-    return $pdf->download('invoice.pdf');
+    //return $pdf->download('invoice.pdf');
+    return $pdf->stream('invoice.pdf');
   }
 
 
@@ -194,13 +195,13 @@ class ProductController extends Controller
       'body' => $body
     ];
     
-    // Mail::send('email.mail', $data, function($message) use ($to_name, $to_email) {
-    // $message->to($to_email, $to_name)
-    //         ->subject('Artisans Web Testing Mail');
-    // $message->from('maiwandkesavan@gmail.com','Test');
-    // });
+    Mail::send('email.mail', $data, function($message) use ($to_name, $to_email) {
+    $message->to($to_email, $to_name)
+            ->subject('Artisans Web Testing Mail');
+    $message->from('maiwandkesavan@gmail.com','Test');
+    });
 
-    \Mail::to($to_email)->send(new \App\Mail\Exaplemail($data));
+    //\Mail::to($to_email)->send(new \App\Mail\Exaplemail($data));
     echo "Email Send check ur in box...";
   }
 }
