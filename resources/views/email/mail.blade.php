@@ -4,8 +4,9 @@
 	<title>Test Mail</title>
 </head>
 <body>
-    Hi <strong>{{ $title }}</strong>,
+    <h1>welcome to maiwand technologies</h1>
+    Title - <strong>{{ $title }}</strong> ,
  
-    <p>{{ $body }}</p>
+    <p>Message - {{ $body }}</p>
 </body>
 </html>

@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Auth;
 use App\Admin;
 use App\User;
-use App\Account;
 class AdminController extends Controller
 {
 
@@ -24,13 +23,7 @@ class AdminController extends Controller
 
    }
 
-   public function user() {
-
-      $admins = Account::all();
-      //dd($admin);
-      return view('admin.dashboard',compact('admins'));
-
-   }
+   
    public function create() {
       echo 'create';
    }
