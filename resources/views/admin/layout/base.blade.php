@@ -50,6 +50,15 @@
         <li class="nav-item">
           <a class="nav-link" href="{{ url('/admin/email') }}">Send Email</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url('/admin/product') }}">Product</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url('/admin/order') }}">Order</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url('/admin/words') }}">Words</a>
+        </li>
         @if (Auth::guest())
         <li class="nav-item">
           <a class="nav-link" href="{{ url('/admin/register') }}">Register</a>

@@ -25,5 +25,15 @@ Route::delete('documentdocument-delete/{id}', 'EmployeeController@delete')->name
 Route::get('email', 'EmployeeController@email')->name('email');
 Route::post('send-mail', 'EmployeeController@send')->name('send-mail');
 
+Route::resource('product', 'ProductController');
+
+
+
+Route::get('order', 'ProductController@order')->name('order');
+Route::get('code', 'ProductController@code')->name('code');
+Route::get('words', 'ProductController@words')->name('words');
+Route::get('calculate', 'ProductController@calculate')->name('calculate');
+Route::post('orderStore', 'ProductController@orderStore')->name('orderStore');
+
 
 
