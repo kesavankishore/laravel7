@@ -22,9 +22,12 @@ use Illuminate\Support\Facades\Route;
 Route::post('login', 'PassportController@login');
 Route::post('register', 'PassportController@register');
 
+Route::resource('products', 'ProductController');
+//API call url : http://localhost/laravel/public/api/products
+
 Route::group(['middleware' => ['auth:api']], function () {
     Route::get('user', 'PassportController@details');
 
-
+    //Route::resource('products', 'ProductController');
 
 });
