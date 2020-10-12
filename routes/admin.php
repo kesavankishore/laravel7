@@ -41,4 +41,10 @@ Route::get('/cart-update', 'CartController@cart_update')->name('cart.update');
 Route::post('/cart-remove', 'CartController@cart_remove')->name('cart.remove');
 
 
+Route::get('/cart-details', 'CartController@index')->name('cart.details');
+Route::get('/cart-add', 'CartController@cart_add')->name('cart.add');
+Route::get('/cart-update', 'CartController@cart_update')->name('cart.update');
+Route::post('/cart-remove', 'CartController@cart_remove')->name('cart.remove');
+
+
 
