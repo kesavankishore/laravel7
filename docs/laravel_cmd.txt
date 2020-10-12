@@ -1,0 +1,42 @@
+Laravel new laravel_project.
+
+
+composer require laravel/ui
+
+php artisan ui vue --auth
+
+
+npm install
+
+npm run dev
+
+composer require hesto/multi-auth
+
+composer require laravel/helpers
+
+php artisan multi-auth:install admin -f
+
+	
+php artisan db:seed --class=ProductsSeeder
+
+php artisan make:model Project -mcr
+
+Check cron job status : service crond status
+
+Start cron job : service crond start
+
+php artisan config:clear
+
+php artisan config:cache
+
+php artisan route:cache
+
+php artisan optimize --force
+
+php artisan migrate:refresh --path=/database/migrations/fileName.php
+
+composer create-project --prefer-dist laravel/laravel blog
+
+composer create-project --prefer-dist laravel/laravel:^7.0 blog
+
+
