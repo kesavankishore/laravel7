@@ -26,7 +26,7 @@
            
 
 		<form name="add_name" id="add_name">  
-				{{csrf_field()}}
+        {{csrf_field()}}
 
         <div class="row" style="margin-left: 0px;">
         
@@ -48,9 +48,13 @@
         <div class="col-md-1 mt-4">
           <label class="title-color">Total : </label>
         </div>
+        <div class="col-md-1 mt-4">
+          <label class="title-color">Attach : </label>
+        </div>
         
       </div>
-        <div class="row" id="dynamic_field">
+
+        <div class="row">
         
           <div class="col-md-2 mt-4">
            <input type="text" onchange="fetch(this);" class="form-control" name="code[]" id="code_0">
@@ -68,19 +72,24 @@
         <div class="col-md-1 mt-4">
           <input type="number" onchange="qnty(this);" min="1" class="form-control" name="qnty[]" id="qnty_0" value="1">
         </div>
-        <div class="col-md-2 mt-4">
+        <div class="col-md-1 mt-4">
           <input type="text" class="form-control" name="total[]" id="total_0" readonly>
         </div>
         <div class="col-md-2 mt-4">
-          <button type="button" name="add" id="add" class="btn btn-success">Add More</button>
+          <input type="file" class="form-control" name="attachment[]" id="attachment_0" title = "Attachment">
         </div>
+        <div class="col-md-1 mt-4">
+          <button type="button" name="add" id="add" class="btn btn-success">+</button>
+        </div>
+        <div  id="dynamic_field" style="margin-left: 0px;"></div>
       </div>
 
 
   
 	<label for="zipcode" class="col-xs-12 col-form-label"></label>
 	<div class="col-xs-8">
-		<input type="button" name="submit" id="submit" class="btn btn-info" value="Submit" /> 
+    <p style="float: right; margin-right: 150px;">Total : <span id="sub_total">0</span></p>
+		<input type="submit" name="submit" id="submit" class="btn btn-info" value="Submit" /> 
 		<a href="{{route('admin.product.index')}}" class="btn btn-danger">Cancel</a>
 
     <p id="show" style="color: green;display: none;">Order Placed successfuly..!</p>
@@ -111,7 +120,15 @@
 </script>
 
 <script type="text/javascript">
-    $(document).ready(function(){      
+    $(document).ready(function(){ 
+
+    $(window).keydown(function(event){
+    if(event.keyCode == 13) {
+      event.preventDefault();
+      return false;
+    }
+  });     
+
       var postURL = "{{route('admin.orderStore')}}";
       var i=0;  
 
@@ -119,8 +136,9 @@
       $('#add').click(function(){ 
        
            i++;  
-           $('#dynamic_field').append('<div class="row" id="row'+i+'" style="margin-left: 0px;"><div class="col-md-2 mt-4"> <input type="text" onchange="fetch(this);" class="form-control" name="code[]" id="code_'+i+'"> </div> <div class="col-md-2 mt-4">     <input type="text" class="form-control" name="name[]" id="name_'+i+'" readonly> </div>  <div class="col-md-1 mt-4">  <input type="text" class="form-control" name="price[]" id="price_'+i+'" readonly> </div>     <div class="col-md-1 mt-4"> <input type="text" class="form-control" name="stock[]" id="stock_'+i+'" readonly><input type="hidden" class="form-control" name="" id="stock_num_'+i+'"> </div><div class="col-md-1 mt-4"> <input type="number" class="form-control" onchange="qnty(this);" min="1"  name="qnty[]" id="qnty_'+i+'" value="1">  </div> <div class="col-md-2 mt-4">    <input type="text" class="form-control" name="total[]" id="total_'+i+'" readonly> </div><div class="col-md-2 mt-4"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button>     </div></div>');  
+           $('#dynamic_field').append('<div class="row rm" id="row'+i+'" style="margin-left: 0px;"><div class="col-md-2 mt-4"> <input type="text" onchange="fetch(this);" class="form-control" name="code[]" id="code_'+i+'"> </div> <div class="col-md-2 mt-4">     <input type="text" class="form-control" name="name[]" id="name_'+i+'" readonly> </div>  <div class="col-md-1 mt-4">  <input type="text" class="form-control" name="price[]" id="price_'+i+'" readonly> </div>     <div class="col-md-1 mt-4"> <input type="text" class="form-control" name="stock[]" id="stock_'+i+'" readonly><input type="hidden" class="form-control" name="" id="stock_num_'+i+'"> </div><div class="col-md-1 mt-4"> <input type="number" class="form-control" onchange="qnty(this);" min="1"  name="qnty[]" id="qnty_'+i+'" value="1">  </div> <div class="col-md-1 mt-4">    <input type="text" class="form-control" name="total[]" id="total_'+i+'" readonly> </div><div class="col-md-2 mt-4">   <input type="file" class="form-control" name="attachment[]" id="attachment_'+i+'" title = "Attachment">        </div><div class="col-md-1 mt-4"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button>     </div></div>');  
       });  
+
 
 
       $(document).on('click', '.btn_remove', function(){  
@@ -136,17 +154,25 @@
       });
 
 
-      $('#submit').click(function(){            
-           $.ajax({  
-                url:postURL,  
-                method:"POST",  
-                data:$('#add_name').serialize(),
-                type:'json',
+      $("#add_name").on("submit", function(e) {  
+
+          e.preventDefault();          
+           $.ajax({
+                type: "POST",
+                url:  "{{route('admin.orderStore')}}",
+                data: new FormData(this),
+                contentType: false,
+                cache: false,
+                processData:false,
+                dataType: "json",
                 success:function(data)  
                 {
                     if(data.success == 'true'){
                         $("#show").show();
-                        $("#add_name")[0].reset() 
+                        $("#add_name")[0].reset();
+                        $("#sub_total").html(0);
+                        $('.rm').remove();
+
                     }else{
                         alert('Sothing Went wrong..!');
                     }
@@ -197,6 +223,8 @@
                         var qnty = $("#qnty_"+res[1]).val();
                         var total = parseInt(price) * parseInt(qnty);
                         $("#total_"+res[1]).val(total);
+                        var tot = parseInt($("#sub_total").html()) + parseInt(total);
+                        $("#sub_total").html(tot);
                     }else{
                         alert("Error..");
                     }
@@ -213,8 +241,12 @@
         var stock = $("#stock_num_"+res[1]).val();
         var total = parseInt(price) * parseInt(qnty);
         var stock_total = parseInt(stock) - parseInt(qnty);
+        var tot = parseInt($("#sub_total").html()) - parseInt($("#total_"+res[1]).val());
         $("#total_"+res[1]).val(total);
         $("#stock_"+res[1]).val(stock_total);
+
+        var final = parseInt(tot) + parseInt(total);
+                        $("#sub_total").html(final);
       }
       
     }

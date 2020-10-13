@@ -12,11 +12,5 @@ class Product extends Model
        'code', 'name', 'price', 'stock',
     ];
 
-    // public function sluggable(){
-    //     return [
-    //         'slug' => [
-    //             'source' => 'name'
-    //      ]
-    // ];
-    // }
+    
 }
